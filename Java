@@ -1,0 +1,95 @@
+public class Customer {
+  private final String name;
+  private CreditCard creditCard;
+  public Customer(String name, long ccNumber) {
+          this.name = name;
+          this.creditCard = new CreditCard(ccNumber);
+}
+}
+
+class CreditCard {
+
+private final long cardNumber;
+
+CreditCard(long cardNumber) {
+this.cardNumber = cardNumber;
+}
+}
+
+public class Product {
+
+private final String name;
+private int price;
+
+public Product(String name, int price) {
+this.name = name;
+this.price = price;
+}
+
+public int getPrice() {
+return price;
+}
+
+public class ShoppingCart {
+  private List<Product> products = new ArrayList<>();
+  public void addProduct(Product product) {
+  products.add(product);
+}
+
+public int getTotalCost() {
+return products.stream() 
+       .mapToInt(Product::getPrice)  // mapping each one to the price
+       .sum();
+}
+
+public class Demo {
+public static void main(String[] args) {
+ShoppingCart cart = new ShoppingCart();
+Product toothBrush = new Product("Tooth Brush",3350);
+Product babyAlarm = new Product("Baby Alarm", 4999);
+cart.addProduct(toothbrush);
+cart.addProduct(babyAlarm);
+System.out.println(cart.getTotalCost());
+}}
+
+public class Demo {
+public static void main(String[] args) {
+ShoppingCart cart = new ShoppingCart();
+//Product toothBrush = new Product("Tooth Brush",3350);
+//Product babyAlarm = new Product("Baby Alarm", 4999);
+Product toothbrush = Catalogue.getProduct("Electric ToothBrush");
+cart.addProduct(toothbrush);
+cart.addProduct(babyAlarm);
+System.out.println(cart.getTotalCost());
+}}
+
+import java.util.Map;
+public class Catalogue{
+//private static Map<String,Product> productMap = Map.of(
+//"Tooth Brush" ,new Product("Tooth Brush",3350) 
+//" BABY ALARM" ,new Product('baby Alarm",3350)
+//)
+
+private static Map<String,Product> productMap = new HashMap<>();
+
+static{
+productMap.put("Tooth Brush" ,new Product("Tooth Brush",3350));
+productMap.put(" BABY ALARM" ,new Product('baby Alarm",3350));
+}
+
+public static Product getProduct(String ProductName) {
+return ProductMap.get(productName);
+}
+}
+
+Hiding implementation detail
+ Especially detail that might impact on the rest of the system
+
+public class Product {
+ private ProductType type;
+}
+
+private enum ProductType {
+  DIFITAL,PHYSICAL;
+}
+

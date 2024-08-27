@@ -200,6 +200,18 @@ cart.addLineItem(toothbrushes);
 System.out.println(cart.getTotalCost());
 }}
 
+Abstraction 
+
+Hiding detail for a higher-level view 
+Or defining things by their essential characteristics 
+In software can define abstract objects
+
+Encapsulation 
+
+An implementation of abstarction
+
+
+
 
 
 

@@ -93,3 +93,116 @@ private enum ProductType {
   DIFITAL,PHYSICAL;
 }
 
+----------------------------------------------------------------------------------
+
+Order -->
+
+public class Order {
+private Customer customer;
+private ShoppingCart cart;
+private Payment payment;
+
+public Order(Customer customer, ShoppingCart cart, Payment payment) {
+this.customer = customer;
+this.cart = cart;
+this.payment = payment;
+}
+
+@Override
+public String toString() {
+return "Order{" +  "\n customer" + customer + "\n cart" + cart + "\payment=" +payment + 
+   "\n}";
+}
+}
+
+Credit card 
+
+public class CreditCard {
+
+private final long cardNumber;
+CreditCard(long cardNumber){
+this.cardNumber = cardNumber;
+}
+public Optional<Payment> mkPayment(int value) {
+if(Math.random() > 0.3) {
+return Optional.of(new Payment(this,value,UUID.randomUUID()));
+}else{
+return Optional.empty();
+}
+}
+
+@Override
+public String toString() {
+return "CreditCard{" + "cardNumber=" + cardNumber + '}';
+}}
+
+public class Customer {
+private final String name;
+private CreditCard creditCard;
+
+public Customer(String name,long ccNumber) {
+this.name = name;
+this.creditCard = new CreditCard(ccNumber);
+}
+
+public Order checkout(ShoppingCart cart) {
+Optional<Payment>payment = creditCard.mkPayment(cart,getTotalCost());
+//return payment.isPresent() ? Optional.of(new Order(this,cart,payment.get()) : Optional.empty());
+return payment.map(value->new Order(this,cart,value));
+}
+
+@Override
+public String toString() {
+return "Customer{" + "name='" + name + '\'' + "credit Card = " + creditCard + '}';
+}}
+
+public class ShoppingCart {
+private List<LineItem> lineItems = new ArrayList<>();
+public void addLineItem(LineItem lineitem) {lineItems.add(lineItem); }
+
+public int getTotalCost() {
+return lineItems.stream().mapToInt(LineItem::getPrice)
+   .sum()
+}
+
+@Override
+public String toString() {
+return "ShopppingCart{" + "lineItems" + lineItems + '}';
+}}
+
+public class LineItem {
+private Product product:
+private int quantity;
+
+public LineItem(Product product,int quantity) {
+this.product = product;
+this.quantity = quantity;
+}
+
+public Product getProduct() {
+return product;
+}
+
+public struing 
+
+public int getPrice () {
+return product.getPrice()* quantity;
+}
+
+public class Demo {
+public static void main(String[] args) {
+Product toothBrush = Catalogue.getProduct("toothbrush");
+Product babyAlarm = Catalogue.getProduct("BabyAlarm")
+ShoppingCart cart = new ShoppingCart();
+cart.addLineItem(new LineItem(babyAlarm,1))
+LineItem toothBrushes = new LineItem(toothbrush,2);
+cart.addLineItem(toothbrushes);
+}}
+
+
+
+
+
+
+
+

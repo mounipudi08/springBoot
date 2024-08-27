@@ -197,6 +197,7 @@ ShoppingCart cart = new ShoppingCart();
 cart.addLineItem(new LineItem(babyAlarm,1))
 LineItem toothBrushes = new LineItem(toothbrush,2);
 cart.addLineItem(toothbrushes);
+System.out.println(cart.getTotalCost());
 }}
 
 

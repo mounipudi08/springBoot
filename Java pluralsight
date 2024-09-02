@@ -433,6 +433,175 @@ can be written like that
 
 Comparator<Integer> c = Integer::compare;
 
+List<Customer> list = ......;
+list.forEach(System.out::println);
+
+or 
+
+List<Customer> list = .....;
+list.forEach(System.out::println)
+
+
+Predicates 
+
+Predicate<String> p1 = s->s.length()<20;
+Predicate<String> p1 = s->s.length()>10;
+
+Predicate<String> p3 = p1.and(p2)
+
+Map/filter/Reduce
+
+List<Person> list = new ArrayList<>();
+
+Suppose we want to compute the 
+
+average of the age of the people older than 20 
+
+How are we going to proceed
+
+1st mapping
+
+The mapping step takes a List<Person> and returns a list<Integer>
+
+The size of both list is the same
+
+filtering
+
+The filtering step takes a List<Integer> and returns a List<Integer>
+
+But there are some elements have been filtered out in the process
+
+3rd step average 
+
+This is the reduction step ,equivalent to the sql aggregation
+
+public interface Stream<T> extends BaseStream<T,Stream<T>> {
+
+}
+
+what does efficiently mean?
+
+Two things:
+
+In parallel,to levarage the computing power of multicore CPUs
+pipelined to avoid unnecessary intermediary computations
+
+
+Why can't a collection be a stream?\
+
+So what is a Stream?
+
+An object on which one can define operations
+An object that does not hold any data 
+An object that should not change the data it process
+An object able to process the data in one pass
+An object optimized from the algorithm point of view ,and able to process the data in parallel
+
+List<Person> persons = ...;
+Stream<Person> stream = persons.stream();
+stream.forEach(p->System.out.println(p));
+
+prints all the elements of the list 
+
+Interface Consumer<T>
+@FunctionalInterface
+public interface Consumer<T> {
+void accept(T t) ;
+}
+
+Consumer<T> is a functional Interface 
+
+can be implemented by a lambda expression
+
+Consumer<T> c = p-> System.out.println(p);
+
+Consumer<T> c = System.out::println;
+
+Let's chain consumers 
+
+List<String> list = new ArrayList<>();
+Consumer<String> c1 = s-> list.add(s);
+Consumer<String> c2 = s-> System.out.println(s);
+
+Only way to have several consumers on a single stream
+
+List<String> result = new ArrayList<>();
+List<Person> persons = ....;
+
+Consumer<String> c1 = result::add;
+Consumer<String> c1 = System.out::println;
+
+persons.stream().forEach(c1.andThen(c2))
+
+because forEach() does not return anything
+
+A second Operation : Filter
+
+List<Person> list = ...;
+Stream<Person> stream = list.stream();
+Stream<Person> filtered = 
+   stream.filter(person->person.getAge()>20);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
